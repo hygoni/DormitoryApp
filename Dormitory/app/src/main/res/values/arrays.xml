@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dong">
+        <item>1 동</item>
+        <item>2 동</item>
+        <item>3 동</item>
+        <item>4 동</item>
+        <item>5 동</item>
+        <item>6 동</item>
+        <item>7 동</item>
+        <item>8 동</item>
+        <item>9 동</item>
+        <item>10 동</item>
+        <item>11 동</item>
+        <item>12 동</item>
+        <item>13 동</item>
+    </string-array>
+</resources>

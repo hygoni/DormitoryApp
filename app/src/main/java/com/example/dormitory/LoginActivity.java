@@ -54,8 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 dialog = builder.setMessage("로그인에 성공했습니다.").setPositiveButton("확인",null).create();
                                 dialog.show();
+                                // String userID = jsonResponse.getString("userID");
+                                // String userPassword = jsonResponse.getString("userPassword");
 
                                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+
+                                //intent.putExtra("userID", userID);
+                                //intent.putExtra("userPassword", userPassword);
                                 LoginActivity.this.startActivity(intent);
                                 finish();
                             }else{
@@ -70,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 };
                 LoginRequest loginRequest = new LoginRequest(userID,userPassword,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-
+                queue.add(loginRequest);
             }
         });
     }

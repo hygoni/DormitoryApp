@@ -33,10 +33,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="A 운행 정보"
+                android:layout_weight="3"
+                android:text="" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="A 시간 출력"
                 android:layout_weight="1"
                 android:text="" />
             <TextView
-                android:id="@+id/A_bus_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="A 시간 출력"
+                android:layout_weight="1"
+                android:text="" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="A 시간 출력"
+                android:layout_weight="1"
+                android:text="" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="A 시간 출력"
@@ -44,6 +61,7 @@
                 android:text="" />
 
             <Button
+                android:id="@+id/bus_A_Image_Btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="순환버스 A 노선도" />
@@ -69,10 +87,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="B 운행 정보"
+                android:layout_weight="3"
+                android:text="" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="B 운행 시간"
                 android:layout_weight="1"
                 android:text="" />
             <TextView
-                android:id="@+id/B_bus_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="B 운행 시간"
+                android:layout_weight="1"
+                android:text="" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="B 운행 시간"
+                android:layout_weight="1"
+                android:text="" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="B 운행 시간"
@@ -80,6 +115,7 @@
                 android:text="" />
 
             <Button
+                android:id="@+id/bus_B_Image_Btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="순환버스 B 노선도" />

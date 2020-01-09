@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="퇴사시 제출 서류"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:layout_margin="16dp"
+            android:gravity="center_horizontal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/bed_textView"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="침대 사진을 찍어주세요."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/bed_camera_btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="촬영"
+                android:layout_weight="3" />
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/bed_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:layout_margin="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/desk_textView"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="책상 사진을 찍어주세요."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/desk_camera_btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="촬영"
+                android:layout_weight="3" />
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/desk_imageVIew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:layout_margin="16dp"/>
+
+        <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="책상 사진을 찍어주세요."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:text="촬영"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="화장실 사진을 찍어주세요."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:text="촬영"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="옷장 사진을 찍어주세요."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:text="촬영"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="냉장고 내부 사진을 찍어주세요."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:text="촬영"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"/>-->
+    </LinearLayout>
+</ScrollView>

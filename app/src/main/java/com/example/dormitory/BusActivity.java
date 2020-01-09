@@ -1,24 +1,35 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class BusActivity extends AppCompatActivity {
+public class BusActivity extends AppCompatActivity implements View.OnClickListener{
 
     Calendar cal = Calendar.getInstance();
     TextView bus_A_text1;
     TextView bus_A_text2;
     TextView bus_B_text1;
     TextView bus_B_text2;
+
+    Button resetButton;
+    Button image_A_Btn;
+    Button image_B_Btn;
+    AlertDialog customDialog;
 
     ArrayList<TimeTableVO> bus_A= new ArrayList<>();
     ArrayList<TimeTableVO> bus_B= new ArrayList<>();
@@ -32,30 +43,34 @@ public class BusActivity extends AppCompatActivity {
 
     int currentHour = cal.get(Calendar.HOUR_OF_DAY);
     int currentMin = cal.get(Calendar.MINUTE);
+    int currentSec = cal.get(Calendar.SECOND);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus);
 
-        bus_A_text1 = (TextView)findViewById(R.id.A_bus_text1);
-        bus_A_text2 = (TextView)findViewById(R.id.A_bus_text2);
-        bus_B_text1 = (TextView)findViewById(R.id.B_bus_text1);
-        bus_B_text2 = (TextView)findViewById(R.id.B_bus_text2);
-        Button resetButton = findViewById(R.id.resetBtn);
+        bus_A_text1 = findViewById(R.id.A_bus_text1);
+        bus_A_text2 = findViewById(R.id.A_bus_text2);
+        bus_B_text1 = findViewById(R.id.B_bus_text1);
+        bus_B_text2 = findViewById(R.id.B_bus_text2);
+
+        resetButton = findViewById(R.id.resetBtn);
+        image_A_Btn = findViewById(R.id.bus_A_Image_Btn);
+        image_B_Btn = findViewById(R.id.bus_B_Image_Btn);
 
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursorA = db.rawQuery("select * from tb_bus where type='A'",null);
-        Cursor cursorB = db.rawQuery("select * from tb_bus where type='B'",null);
+        Cursor cursorA = db.rawQuery("select * from tb_bus where type='A'", null);
+        Cursor cursorB = db.rawQuery("select * from tb_bus where type='B'", null);
 
-        while(cursorA.moveToNext()){
+        while (cursorA.moveToNext()) {
             TimeTableVO vo = new TimeTableVO();
             vo.hour = cursorA.getString(2);
             vo.min = cursorA.getString(3);
             bus_A.add(vo);
         }
-        while(cursorB.moveToNext()){
+        while (cursorB.moveToNext()) {
             TimeTableVO vo = new TimeTableVO();
             vo.hour = cursorB.getString(2);
             vo.min = cursorB.getString(3);
@@ -63,17 +78,57 @@ public class BusActivity extends AppCompatActivity {
         }
         db.close();
 
+        TimerTask timerTask1 = new TimerTask() {    //60초 간격 마다 1분씩 증가해줌
+            @Override
+            public void run() {
+              currentMin++;
+              if(currentMin>=60){
+                  currentMin = currentMin%60;
+                  currentHour++;
+              }
+            }
+        };
+        TimerTask timerTask2 = new TimerTask() {    //60-currentSec 후 1번 1분 증가시킴
+            @Override
+            public void run() {
+                currentMin++;
+                if(currentMin>=60){
+                    currentMin = currentMin%60;
+                    currentHour++;
+                }
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(timerTask2,60000-currentSec*1000);
+        timer.schedule(timerTask1,60000-currentSec*1000,60000);
+
         busA_getTime();
         busB_getTime();
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentHour = cal.get(Calendar.HOUR_OF_DAY);
-                currentMin = cal.get(Calendar.MINUTE);
-                busA_getTime();
-                busB_getTime();
+        resetButton.setOnClickListener(this);
+        image_A_Btn.setOnClickListener(this);
+        image_B_Btn.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v){
+        if(v==resetButton){
+            busA_getTime();
+            busB_getTime();
+        } else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view;
+            if(v==image_A_Btn){
+                 view = inflater.inflate(R.layout.bus_a_image_layout,null);
+                 builder.setView(view);
             }
-        });
+            else if(v == image_B_Btn){
+                view = inflater.inflate(R.layout.bus_b_image_layout,null);
+                builder.setView(view);
+            }
+            builder.setPositiveButton("확인",dialogListener);
+            customDialog = builder.create();
+            customDialog.show();
+        }
     }
     private void busA_getTime(){
         if((bus_start_hour>currentHour||bus_finish_hour<currentHour)||(currentHour==bus_start_hour&&currentMin<A_bus_start_min)||(currentHour==bus_finish_hour&&currentMin>A_bus_finish_min)){
@@ -88,6 +143,8 @@ public class BusActivity extends AppCompatActivity {
                     temp.append(" 분 남았습니다.");
                     bus_A_text1.setText(temp.toString());
                     return;
+                }else if(currentTemp==timeTemp){
+                    bus_A_text1.setText("곧 도착 할 예정입니다.");
                 }
             }
         }
@@ -105,8 +162,17 @@ public class BusActivity extends AppCompatActivity {
                     temp.append(" 분 남았습니다.");
                     bus_B_text1.setText(temp.toString());
                     return;
+                }else if(currentTemp==timeTemp){
+                    bus_A_text1.setText("곧 도착 할 예정입니다.");
                 }
             }
         }
     }
+    DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+        }
+    };
+
 }

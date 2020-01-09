@@ -1,10 +1,10 @@
 package com.example.dormitory;
 
-        import com.android.volley.Response;
-        import com.android.volley.toolbox.StringRequest;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
-        import java.util.HashMap;
-        import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginRequest extends StringRequest {
     final static private String URL = "http://";

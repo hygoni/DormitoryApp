@@ -23,8 +23,14 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
     Calendar cal = Calendar.getInstance();
     TextView bus_A_text1;
     TextView bus_A_text2;
+    TextView bus_A_text3;
+    TextView bus_A_text4;
+    TextView bus_A_text5;
     TextView bus_B_text1;
     TextView bus_B_text2;
+    TextView bus_B_text3;
+    TextView bus_B_text4;
+    TextView bus_B_text5;
 
     Button resetButton;
     Button image_A_Btn;
@@ -52,8 +58,15 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
 
         bus_A_text1 = findViewById(R.id.A_bus_text1);
         bus_A_text2 = findViewById(R.id.A_bus_text2);
+        bus_A_text3 = findViewById(R.id.A_bus_text3);
+        bus_A_text4 = findViewById(R.id.A_bus_text4);
+        bus_A_text5 = findViewById(R.id.A_bus_text5);
+
         bus_B_text1 = findViewById(R.id.B_bus_text1);
         bus_B_text2 = findViewById(R.id.B_bus_text2);
+        bus_B_text3 = findViewById(R.id.B_bus_text3);
+        bus_B_text4 = findViewById(R.id.B_bus_text4);
+        bus_B_text5 = findViewById(R.id.B_bus_text5);
 
         resetButton = findViewById(R.id.resetBtn);
         image_A_Btn = findViewById(R.id.bus_A_Image_Btn);
@@ -88,18 +101,7 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
               }
             }
         };
-        TimerTask timerTask2 = new TimerTask() {    //60-currentSec 후 1번 1분 증가시킴
-            @Override
-            public void run() {
-                currentMin++;
-                if(currentMin>=60){
-                    currentMin = currentMin%60;
-                    currentHour++;
-                }
-            }
-        };
         Timer timer = new Timer();
-        timer.schedule(timerTask2,60000-currentSec*1000);
         timer.schedule(timerTask1,60000-currentSec*1000,60000);
 
         busA_getTime();
@@ -138,13 +140,29 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
             int currentTemp = currentHour*60+currentMin;
             for(int i=0;i<bus_A.size();i++){
                 int timeTemp =Integer.parseInt(bus_A.get(i).hour)*60+Integer.parseInt(bus_A.get(i).min);
-                if(currentTemp<timeTemp){
+                if(currentTemp<=timeTemp){
                     StringBuilder temp = new StringBuilder(Integer.toString(timeTemp-currentTemp));
                     temp.append(" 분 남았습니다.");
                     bus_A_text1.setText(temp.toString());
+                    if(currentTemp==timeTemp){
+                        bus_A_text1.setText("곧 도착 할 예정입니다.");
+                    }
+                    ArrayList<String> save = new ArrayList<>();
+                    int max = 3;
+                    for(int j=i;j<bus_A.size()&&max>0;j++){
+                        save.add(bus_A.get(j).hour+" 시 "+bus_A.get(j).min+" 분");
+                        max --;
+                    }
+                    for(int j=0;j<save.size();j++){
+                        if(j==0){
+                            bus_A_text3.setText(save.get(0));
+                        }else if(j==1){
+                            bus_A_text4.setText(save.get(1));
+                        }else if(j==2){
+                            bus_A_text5.setText(save.get(2));
+                        }
+                    }
                     return;
-                }else if(currentTemp==timeTemp){
-                    bus_A_text1.setText("곧 도착 할 예정입니다.");
                 }
             }
         }
@@ -157,13 +175,29 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
             int currentTemp = currentHour*60+currentMin;
             for(int i=0;i<bus_B.size();i++){
                 int timeTemp =Integer.parseInt(bus_B.get(i).hour)*60+Integer.parseInt(bus_B.get(i).min);
-                if(currentTemp<timeTemp){
-                    StringBuilder temp = new StringBuilder(Integer.toString(timeTemp-currentTemp));
+                if(currentTemp<=timeTemp) {
+                    StringBuilder temp = new StringBuilder(Integer.toString(timeTemp - currentTemp));
                     temp.append(" 분 남았습니다.");
                     bus_B_text1.setText(temp.toString());
+                    if (currentTemp == timeTemp) {
+                        bus_B_text1.setText("곧 도착 할 예정입니다.");
+                    }
+                    ArrayList<String> save = new ArrayList<>();
+                    int max = 3;
+                    for (int j = i; j < bus_B.size() && max > 0; j++) {
+                        save.add(bus_B.get(j).hour + " 시 " + bus_B.get(j).min + " 분");
+                        max--;
+                    }
+                    for (int j = 0; j < save.size(); j++) {
+                        if (j == 0) {
+                            bus_B_text3.setText(save.get(0));
+                        } else if (j == 1) {
+                            bus_B_text4.setText(save.get(1));
+                        } else if (j == 2) {
+                            bus_B_text5.setText(save.get(2));
+                        }
+                    }
                     return;
-                }else if(currentTemp==timeTemp){
-                    bus_A_text1.setText("곧 도착 할 예정입니다.");
                 }
             }
         }
@@ -174,5 +208,4 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
 
         }
     };
-
 }

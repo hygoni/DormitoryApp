@@ -123,7 +123,7 @@
             </TableLayout>
         </LinearLayout>
     </LinearLayout>
-<!---->
+
     <!-- navigationView 를 설정 -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_drawer_view"

@@ -87,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent=new Intent(this, DormActivity.class);
             startActivity(intent);
         }
+        else if(v==busBtn){
+            Intent intent=new Intent(this, BusActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

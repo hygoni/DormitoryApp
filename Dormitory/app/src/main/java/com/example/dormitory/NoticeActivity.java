@@ -20,7 +20,7 @@ public class NoticeActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         // 웹뷰 시작
-        mWebView = (WebView) findViewById(R.id.noticeWebView);
+        mWebView = (WebView)findViewById(R.id.noticeWebView);
 
         mWebView.setWebViewClient(new WebViewClient()); // 클릭시 새창 안뜨게
         mWebSettings = mWebView.getSettings(); //세부 세팅 등록
@@ -35,6 +35,8 @@ public class NoticeActivity extends AppCompatActivity {
         mWebSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // 브라우저 캐시 허용 여부
         mWebSettings.setDomStorageEnabled(true); // 로컬저장소 허용 여부
 
-        mWebView.loadUrl("https://dorm.cnu.ac.kr/_prog/_board/?code=sub05_0501&site_dvs_cd=kr&menu_dvs_cd=0501"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+       // mWebView.loadUrl("http://cnuant.iptime.org:8080/board"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+        mWebView.loadUrl("https://dorm.cnu.ac.kr/_prog/_board/?code=sub05_0501&site_dvs_cd=kr&menu_dvs_cd=0501");
+
     }
 }

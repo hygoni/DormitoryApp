@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".CafeteriaActivity">
-    <TextView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+        <TextView
+        android:id="@+id/todayMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -16,48 +18,139 @@
         android:id="@+id/breakfast_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="아침 mainA"/>
-        <TextView
+            android:text="아침 (07:00~09:00)"/>
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/BreakfastA"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="아침 mainA"/>
+            android:text="BreakfastA"/>
+            <Button
+                android:id="@+id/cafeteria_evaluation_btn1"
+                android:layout_width="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="메뉴 평가" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/BreakfastC"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="BreakfastC"/>
+            <Button
+                android:id="@+id/cafeteria_evaluation_btn2"
+                android:layout_width="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="메뉴 평가" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lunch_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="점심 mainA"/>
-        <TextView
+            android:text="점심 (11:30~13:30)"/>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="점심 mainA"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="점심 mainA"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lunchA"
+               android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+               android:layout_height="match_parent"
+            android:text="lunchA"/>
+            <Button
+                android:id="@+id/cafeteria_evaluation_btn3"
+                android:layout_width="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="메뉴 평가" />
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lunchB"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="lunchB"/>
+                <Button
+                    android:id="@+id/cafeteria_evaluation_btn4"
+                    android:layout_width="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="메뉴 평가" />
+
+            </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/dinner_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="저녁 mainA"/>
-        <TextView
+            android:text="저녁 (17:30~19:30)"/>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="저녁 mainA"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/Dinner"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Dinner"/>
+            <Button
+                android:id="@+id/cafeteria_evaluation_btn5"
+                android:layout_width="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="메뉴 평가" />
+
+        </LinearLayout>
+        </LinearLayout>
 </LinearLayout>
+</ScrollView>

@@ -104,7 +104,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("insert into tb_bus (type,hour,min) values ('B','17','50')");
         db.execSQL("insert into tb_bus (type,hour,min) values ('B','18','15')");
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(newVersion == DATABASE_VERSION){

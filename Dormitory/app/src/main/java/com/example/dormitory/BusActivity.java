@@ -145,7 +145,7 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
                     temp.append(" 분 남았습니다.");
                     bus_A_text1.setText(temp.toString());
                     if(currentTemp==timeTemp){
-                        bus_A_text1.setText("곧 도착 할 예정입니다.");
+                        bus_A_text1.setText("잠시 후 도착");
                     }
                     ArrayList<String> save = new ArrayList<>();
                     int max = 3;
@@ -180,7 +180,7 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
                     temp.append(" 분 남았습니다.");
                     bus_B_text1.setText(temp.toString());
                     if (currentTemp == timeTemp) {
-                        bus_B_text1.setText("곧 도착 할 예정입니다.");
+                        bus_B_text1.setText("잠시 후 도착");
                     }
                     ArrayList<String> save = new ArrayList<>();
                     int max = 3;

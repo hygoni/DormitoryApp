@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".WasherActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_test"/>
+    <!-- 동적으로 버튼을 생성?? 그냥 버튼 많이 만들어 놓고, -->
     <LinearLayout
         android:id="@+id/washer1"
         android:layout_width="match_parent"

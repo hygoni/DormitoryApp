@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         busBtn.setOnClickListener(this);
         dormBtn.setOnClickListener(this);
         noticeBtn.setOnClickListener(this);
-        //
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 

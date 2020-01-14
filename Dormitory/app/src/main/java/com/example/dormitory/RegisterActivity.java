@@ -3,7 +3,9 @@ package com.example.dormitory;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,14 +14,18 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
-
+    RequestQueue queue;
     private ArrayAdapter adapter;
     private Spinner spinner;
     private String userID;
@@ -53,52 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
                 userGender = genderButton.getText().toString();
             }
         });
-
-        final Button validateButton = (Button) findViewById(R.id.validateButton);
-        validateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userID = idText.getText().toString();
-                if (validate) {
-                    return;
-                }
-                if (userID.equals("")) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    dialog = builder.setMessage("아이디 입력이 비어있습니다.").setPositiveButton("확인", null).create();
-                    dialog.show();
-                    return;
-                }
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                dialog = builder.setMessage("사용할 수 있는 아이디입니다.").setPositiveButton("확인", null).create();
-                                dialog.show();
-                                idText.setEnabled(false);
-                                validate = true;
-                                idText.setBackgroundColor(getResources().getColor(R.color.colorGray));
-                                validateButton.setBackgroundColor(getResources().getColor(R.color.colorGray));
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                dialog = builder.setMessage("사용할 수 없는 아이디입니다.").setNegativeButton("확인", null).create();
-                                dialog.show();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                ValidateRequest validateRequest = new ValidateRequest(userID, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(validateRequest);
-            }
-        });
         Button registerButton = (Button) findViewById(R.id.registerButton);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        /*registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String userID = idText.getText().toString();
@@ -142,6 +104,55 @@ public class RegisterActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
 
+            }
+        });*/
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userID = idText.getText().toString();
+                String userPassword = passwordText.getText().toString();
+                String userDong = spinner.getSelectedItem().toString();
+                String userNickname = nicknameText.getText().toString();
+                queue=Volley.newRequestQueue(RegisterActivity.this);
+
+                JSONObject requestJsonObject = new JSONObject();
+                try {
+                    requestJsonObject.put("uid",userID);
+                    requestJsonObject.put("password",userPassword);
+                    requestJsonObject.put("building_number",userDong);
+                    requestJsonObject.put("nickname",userNickname);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JsonObjectRequest jsonRequest=new JsonObjectRequest(Request.Method.POST, "http://cnuant.iptime.org:8000/register", requestJsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean success = response.getBoolean("success");
+                            if(success){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                dialog = builder.setMessage("회원가입에 성공했습니다.").setPositiveButton("확인",null).create();
+                                dialog.show();
+                                finish();
+                            }else{
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                dialog = builder.setMessage("회원가입에 실패했습니다.").setNegativeButton("재시도",null).create();
+                                dialog.show();
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("myTag","ErrorListener");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        dialog = builder.setMessage("네트워크 오류").setNegativeButton("재시도",null).create();
+                        dialog.show();
+                    }
+                });
+                queue.add(jsonRequest);
             }
         });
     }

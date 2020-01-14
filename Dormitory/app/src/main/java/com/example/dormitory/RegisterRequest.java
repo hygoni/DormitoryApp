@@ -1,13 +1,12 @@
 package com.example.dormitory;
 
-        import com.android.volley.Response;
-        import com.android.volley.toolbox.StringRequest;
-
-        import java.util.HashMap;
-        import java.util.Map;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
-    final static private String URL = "http://";
+    final static private String URL = "http://cnuant.iptime.org:8000/register";
     private Map<String,String> parameters;
 
     public RegisterRequest(String userID, String userPassword, String userGender, String userNickname, String userDong, Response.Listener<String> listener){
@@ -19,7 +18,6 @@ public class RegisterRequest extends StringRequest {
         parameters.put("userNickname",userNickname);
         parameters.put("userDong",userDong);
     }
-
     @Override
     public Map<String,String> getParams(){
         return parameters;

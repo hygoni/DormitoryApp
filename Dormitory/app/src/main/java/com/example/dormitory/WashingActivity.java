@@ -22,7 +22,6 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
         washerButton = findViewById(R.id.washerBtn);
         dryerButton  = findViewById(R.id.dryerBtn);
 
-
         washerButton.setOnClickListener(this);
         dryerButton.setOnClickListener(this);
     }

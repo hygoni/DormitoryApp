@@ -99,13 +99,13 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
         todayMenu.setText(date+" 의 메뉴");
 
 
-        breakfastA_View.setText("메인 "+breakfastA.substring(0,breakfastA.indexOf("]")+2)+"\n\n"+parser(breakfastA.substring(breakfastA.indexOf("]")+2)));
-        breakfastC_View.setText("메인 "+breakfastC.substring(0,breakfastC.indexOf("]")+2)+"\n\n"+parser(breakfastC.substring(breakfastC.indexOf("]")+2)));
-        lunchA_View.setText("메인 "+lunchA.substring(0,lunchA.indexOf("]")+2)+"\n\n"+parser(lunchA.substring(lunchA.indexOf("]")+2)));
+        breakfastA_View.setText("메인 A"+breakfastA.substring(0,breakfastA.indexOf("]")+2)+"\n\n"+parser(breakfastA.substring(breakfastA.indexOf("]")+2)));
+        breakfastC_View.setText("메인 C"+breakfastC.substring(0,breakfastC.indexOf("]")+2)+"\n\n"+parser(breakfastC.substring(breakfastC.indexOf("]")+2)));
+        lunchA_View.setText("메인 A"+lunchA.substring(0,lunchA.indexOf("]")+2)+"\n\n"+parser(lunchA.substring(lunchA.indexOf("]")+2)));
         if(!(todayOfWeek=="Sunday"||todayOfWeek=="Saturday")){
-            lunchB_View.setText("메인 "+lunchB.substring(0,lunchB.indexOf("]")+2)+"\n\n"+parser(lunchB.substring(lunchB.indexOf("]")+2)));
+            lunchB_View.setText("메인 B"+lunchB.substring(0,lunchB.indexOf("]")+2)+"\n\n"+parser(lunchB.substring(lunchB.indexOf("]")+2)));
         }
-        dinner_View.setText("메인 "+dinner.substring(0,dinner.indexOf("]")+2)+"\n\n"+parser(dinner.substring(dinner.indexOf("]")+2)));
+        dinner_View.setText("메인 A"+dinner.substring(0,dinner.indexOf("]")+2)+"\n\n"+parser(dinner.substring(dinner.indexOf("]")+2)));
         if(todayOfWeek=="Sunday"||todayOfWeek=="Saturday"){
             lunchB_View.setVisibility(View.INVISIBLE);
             evaluationBtn4.setVisibility(View.INVISIBLE);

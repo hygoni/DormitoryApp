@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -21,12 +22,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ActionBarDrawerToggle toggle;
 
     //버튼 선언
-    Button cafeteriaBtn;
-    Button deliveryBtn;
-    Button washingBtn;
-    Button busBtn;
-    Button dormBtn;
-    Button noticeBtn;
+    ImageButton cafeteriaBtn;
+    ImageButton deliveryBtn;
+    ImageButton washingBtn;
+    ImageButton busBtn;
+    ImageButton dormBtn;
+    ImageButton noticeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

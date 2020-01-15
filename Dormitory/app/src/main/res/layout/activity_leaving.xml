@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#B0D0D6">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +20,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/leaving_activity_border">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            >
             <TextView
                 android:id="@+id/bed_textView"
                 android:layout_width="match_parent"
@@ -30,12 +37,15 @@
                 android:textSize="20dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"/>
-            <Button
+            <ImageButton
                 android:id="@+id/bed_camera_btn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="촬영"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:src="@drawable/ic_photo_camera_black_24dp"
+                android:background="#00FFFFFF"/>
+            <!--android:text="촬영"-->
+
         </LinearLayout>
         <ImageView
             android:id="@+id/bed_imageView"
@@ -44,6 +54,7 @@
             android:maxWidth="150dp"
             android:maxHeight="150dp"
             android:layout_margin="10dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

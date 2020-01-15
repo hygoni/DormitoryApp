@@ -155,19 +155,19 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(CafeteriaActivity.this);
         if(v==breakfastA_View){
-            dialog = builder.setMessage("500/1000.\n1000끼중 500끼 남았습니다.").setPositiveButton("확인",null).create();
+            dialog = builder.setMessage("매진 되었습니다.").setPositiveButton("확인",null).create();
             dialog.show();
         }else if(v==breakfastC_View){
-            dialog = builder.setMessage("500/1000.\n1000끼중 500끼 남았습니다.").setPositiveButton("확인",null).create();
+            dialog = builder.setMessage("매진 되었습니다.").setPositiveButton("확인",null).create();
             dialog.show();
         }else if(v==lunchA_View){
-            dialog = builder.setMessage("500/1000.\n1000끼중 500끼 남았습니다.").setPositiveButton("확인",null).create();
+            dialog = builder.setMessage("580/700.\n700끼중 580끼 남았습니다.").setPositiveButton("확인",null).create();
             dialog.show();
         } else if(v==lunchB_View){
-            dialog = builder.setMessage("500/1000.\n1000끼중 500끼 남았습니다.").setPositiveButton("확인",null).create();
+            dialog = builder.setMessage("420/800.\n800끼중 420끼 남았습니다.").setPositiveButton("확인",null).create();
             dialog.show();
         } else if(v==dinner_View){
-            dialog = builder.setMessage("500/1000.\n1000끼중 500끼 남았습니다.").setPositiveButton("확인",null).create();
+            dialog = builder.setMessage("1000/1000.\n1000끼중 1000끼 남았습니다.").setPositiveButton("확인",null).create();
             dialog.show();
         } else{
             Intent intent = new Intent(CafeteriaActivity.this, EvaluationActivity.class);
@@ -175,19 +175,19 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
             String temp= "";
             if(v==evaluationBtn1){
                 temp = breakfastA_View.getText().toString().substring(0,breakfastA.indexOf("[")+3);
-                menuType = date+" 아침 "+temp +" 식단";
+                menuType = date+" 아침 A"+temp +" 식단";
             }else if(v==evaluationBtn2){
                 temp = breakfastC_View.getText().toString().substring(0,breakfastC.indexOf("[")+3);
-                menuType = date+" 아침 "+ temp +" 식단";
+                menuType = date+" 아침 C"+ temp +" 식단";
             }else if(v==evaluationBtn3){
                 temp = lunchA_View.getText().toString().substring(0,lunchA.indexOf("[")+3);
-                menuType = date+" 점심 "+ temp +" 식단";
+                menuType = date+" 점심 A"+ temp +" 식단";
             }else if(v==evaluationBtn4){
                 temp = lunchB_View.getText().toString().substring(0,lunchB.indexOf("[")+3);
-                menuType = date+" 점심 "+ temp +" 식단";
+                menuType = date+" 점심 B"+ temp +" 식단";
             }else if(v==evaluationBtn5){
                 temp = dinner_View.getText().toString().substring(0,dinner.indexOf("[")+3);
-                menuType = date+" 저녁 "+ temp +" 식단";
+                menuType = date+" 저녁 A"+ temp +" 식단";
             }
             intent.putExtra("menuType",menuType);
             CafeteriaActivity.this.startActivity(intent);

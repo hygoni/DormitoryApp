@@ -3,6 +3,7 @@ package com.example.dormitory;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -44,7 +45,12 @@ public class EvaluationActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(EvaluationActivity.this);
             @Override
             public void onClick(View v) {
-                dialog = builder.setMessage("제출이 완료되었습니다.\n소중한 의견 감사합니다.").setPositiveButton("확인",null).create();
+                dialog = builder.setMessage("제출이 완료되었습니다.\n소중한 의견 감사합니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).create();
                 dialog.show();
             }
         });

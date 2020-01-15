@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,10 +21,22 @@ import java.util.Locale;
 
 public class DryerActivity extends AppCompatActivity implements View.OnClickListener{
 
+    JSONArray jsonArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dryer);
+
+        Intent intent= getIntent();
+        String jsonArrayList = intent.getStringExtra("dryerInfo");
+        try{
+            jsonArray = new JSONArray(jsonArrayList);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        for(int i=0;i<jsonArray.length();i++){
+
+        }
     }
     @Override
     public void onClick(View v){

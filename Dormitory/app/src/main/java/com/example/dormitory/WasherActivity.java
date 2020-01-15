@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,9 +24,10 @@ import java.util.Date;
 import java.util.Locale;
 
 public class WasherActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView test;
 
     ArrayList<Button> btnArray = new ArrayList<>();
+
+    JSONArray jsonArray ;
 
     Button testBtn ;
     @Override
@@ -32,8 +36,23 @@ public class WasherActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_washer);
         //버튼을 여러개 만들어 놓고 43
 
+        Intent intent= getIntent();
+        String jsonArrayList = intent.getStringExtra("washerInfo");
+        try{
+            jsonArray = new JSONArray(jsonArrayList);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        for(int i=0;i<jsonArray.length();i++){
+
+        }
+
         testBtn = findViewById(R.id.washer1_turnOnBtn);
         testBtn.setOnClickListener(this);
+
+
+
+
     }
 
     //클릭 후 서버에 종료시간과 세탁기 번호 보낼거임

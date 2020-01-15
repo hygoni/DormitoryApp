@@ -13,7 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DryerActivity"></activity>
+        <activity android:name=".DeliveryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DryerActivity" />
         <activity android:name=".WasherActivity" />
         <activity android:name=".EvaluationActivity">
             <intent-filter>
@@ -106,6 +113,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <receiver android:name=".AlarmReceiver" />
     </application>
+
 </manifest>

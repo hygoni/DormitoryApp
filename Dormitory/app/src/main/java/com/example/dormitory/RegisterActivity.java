@@ -3,6 +3,7 @@ package com.example.dormitory;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,10 +66,17 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userID = idText.getText().toString();
                 String userPassword = passwordText.getText().toString();
-                String userDong = spinner.getSelectedItem().toString();
+                String userDong = buildingNumber(spinner.getSelectedItem().toString());
                 String userNickname = nicknameText.getText().toString();
-                queue=Volley.newRequestQueue(RegisterActivity.this);
 
+                if(userID.equals("")||userPassword.equals("")||userDong.equals("")||userNickname.equals("")||userGender.equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    dialog = builder.setMessage("빈 칸 없이 입력해주세요.").setNegativeButton("확인", null).create();
+                    dialog.show();
+                    return ;
+                }
+
+                queue=Volley.newRequestQueue(RegisterActivity.this);
                 JSONObject requestJsonObject = new JSONObject();
                 try {
                     requestJsonObject.put("uid",userID);
@@ -85,9 +93,14 @@ public class RegisterActivity extends AppCompatActivity {
                             boolean success = response.getBoolean("success");
                             if(success){
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                dialog = builder.setMessage("회원가입에 성공했습니다.").setPositiveButton("확인",null).create();
+                                dialog = builder.setMessage("회원가입에 성공했습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                }).create();
                                 dialog.show();
-                                finish();
+
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 dialog = builder.setMessage("회원가입에 실패했습니다.").setNegativeButton("재시도",null).create();
@@ -117,5 +130,9 @@ public class RegisterActivity extends AppCompatActivity {
             dialog.dismiss();
             dialog = null;
         }
+    }
+    private String buildingNumber(String str){
+        String[] temp = str.split("동");
+        return temp[0];
     }
 }

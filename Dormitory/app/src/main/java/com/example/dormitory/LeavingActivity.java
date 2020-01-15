@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class LeavingActivity extends AppCompatActivity implements View.OnClickLi
     int reqWidth;
     int reqHeight;
 
-    Button bedBtn;
+    ImageButton bedBtn;
     Button deskBtn;
     Button bathroomBtn;
     Button closetBtn;

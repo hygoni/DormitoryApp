@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent=new Intent(this, WashingActivity.class);
             //몇동인지 정보가 넘어가야할듯
             startActivity(intent);
+        }else if(v==deliveryBtn){
+            Intent intent=new Intent(this, DeliveryActivity.class);
+            startActivity(intent);
         }
     }
 

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
 
+    TextView userView;
     //버튼 선언
     ImageButton cafeteriaBtn;
     ImageButton deliveryBtn;
@@ -29,11 +31,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton dormBtn;
     ImageButton noticeBtn;
 
+    String data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
         //버튼 지정 ,setOnClickListener 까지 설정
         cafeteriaBtn = findViewById(R.id.cafeteria_btn);
         deliveryBtn = findViewById(R.id.delivery_btn);
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         busBtn = findViewById(R.id.bus_btn);
         dormBtn = findViewById(R.id.dorm_btn);
         noticeBtn = findViewById(R.id.notice_btn);
+        userView = findViewById(R.id.userTextView);
 
         cafeteriaBtn.setOnClickListener(this);
         deliveryBtn.setOnClickListener(this);
@@ -48,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         busBtn.setOnClickListener(this);
         dormBtn.setOnClickListener(this);
         noticeBtn.setOnClickListener(this);
+
+        data = intent.getStringExtra("data");
+        userView.setText(data);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -118,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return super.onKeyDown(keyCode,event);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(toggle.onOptionsItemSelected(item)){

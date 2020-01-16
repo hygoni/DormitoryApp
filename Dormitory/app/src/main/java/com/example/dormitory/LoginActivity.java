@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 JsonObjectRequest jsonRequest=new JsonObjectRequest(Request.Method.POST, "http://cnuant.iptime.org:8000/login", requestJsonObject, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(final JSONObject response) {
                         try {
                             boolean success = response.getBoolean("success");
                             if(success){
@@ -73,6 +73,13 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                        String data = "";
+                                        try{
+                                            data = response.getString("data");
+                                        }catch (JSONException e){
+                                            e.printStackTrace();
+                                        }
+                                        intent.putExtra("data",data);
                                         LoginActivity.this.startActivity(intent);
                                         finish();
                                     }

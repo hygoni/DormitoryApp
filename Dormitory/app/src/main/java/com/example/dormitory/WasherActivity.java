@@ -1,5 +1,6 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,28 +32,36 @@ public class WasherActivity extends AppCompatActivity implements View.OnClickLis
     JSONArray jsonArray ;
 
     Button testBtn ;
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_washer);
         //버튼을 여러개 만들어 놓고 43
 
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("세탁기 현황");
+
         Intent intent= getIntent();
         String jsonArrayList = intent.getStringExtra("washerInfo");
         try{
             jsonArray = new JSONArray(jsonArrayList);
+            for(int i=0;i<jsonArray.length();i++){
+            JSONObject washer = jsonArray.getJSONObject(i);
+                if(washer.getString("washer_number")==Integer.toString(i)){
+                    if(washer.getString("work")=="true"){
+
+                    }else if(washer.getString("work")=="false"){
+
+                    }
+                }
+            }
         }catch (JSONException e){
             e.printStackTrace();
-        }
-        for(int i=0;i<jsonArray.length();i++){
-
         }
 
         testBtn = findViewById(R.id.washer1_turnOnBtn);
         testBtn.setOnClickListener(this);
-
-
-
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,14 +23,18 @@ public class EvaluationActivity extends AppCompatActivity {
 
     EditText editText;
 
+    ActionBar actionBar;
     AlertDialog dialog;
     Button submitBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation);
-        Intent intent = getIntent();
 
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("메뉴평가");
+
+        Intent intent = getIntent();
 
         evaluationMenu= findViewById(R.id.evaluationMenu);
         ratingbar = findViewById(R.id.ratingBar);

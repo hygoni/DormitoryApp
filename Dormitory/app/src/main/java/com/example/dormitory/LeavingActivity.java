@@ -1,5 +1,6 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -10,6 +11,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.drm.DrmStore;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -32,10 +34,11 @@ public class LeavingActivity extends AppCompatActivity implements View.OnClickLi
     int reqHeight;
 
     ImageButton bedBtn;
-    Button deskBtn;
-    Button bathroomBtn;
-    Button closetBtn;
-    Button refrigeratorBtn;
+    ImageButton deskBtn;
+    ImageButton bathroomBtn;
+    ImageButton closetBtn;
+    ImageButton refrigeratorBtn;
+
     Button submissionBtn;
 
     File filePath;
@@ -47,10 +50,15 @@ public class LeavingActivity extends AppCompatActivity implements View.OnClickLi
     ImageView refrigeratorImage;
 
     AlertDialog dialog;
+
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaving);
+
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("퇴사서류 제출");
 
         bedBtn = findViewById(R.id.bed_camera_btn);
         deskBtn = findViewById(R.id.desk_camera_btn);
@@ -103,7 +111,6 @@ public class LeavingActivity extends AppCompatActivity implements View.OnClickLi
                     if(!dir.exists()){
                         dir.mkdir();
                     }
-                    //???
                     filePath=File.createTempFile("IMG", ".jpg", dir);
                     if(!filePath.exists()){
                         filePath.createNewFile();

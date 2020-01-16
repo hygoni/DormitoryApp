@@ -11,13 +11,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String bus_Table="create table tb_bus ("+
+        String bus_Table = "create table tb_bus (" +
                 "_id integer primary key autoincrement," +
                 "type," +
                 "hour," +
                 "min)";
         db.execSQL(bus_Table);
-        db.execSQL("insert into tb_bus (type,hour,min) values ('A','8','35')");
+        db.execSQL("insert into tb_bus (type,hour,min) values ('A','8','35')");// 1 2 3
         db.execSQL("insert into tb_bus (type,hour,min) values ('A','8','50')");
         db.execSQL("insert into tb_bus (type,hour,min) values ('A','9','05')");
         db.execSQL("insert into tb_bus (type,hour,min) values ('A','9','20')");

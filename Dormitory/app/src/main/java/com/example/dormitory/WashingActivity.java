@@ -1,5 +1,6 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -31,14 +32,20 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
     Button washerButton;
     Button dryerButton;
 
+    JSONArray postTest = new JSONArray();
     JSONArray nowBuildingWasherArray = new JSONArray();
     JSONArray nowBuildingDryerArray = new JSONArray();
 
     RequestQueue queue;
+
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_washing);
+
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("세탁기/건조기");
 
         washerButton = findViewById(R.id.washerBtn);
         dryerButton  = findViewById(R.id.dryerBtn);
@@ -49,16 +56,19 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
         dryerButton.setOnClickListener(this);
 
         queue = Volley.newRequestQueue(WashingActivity.this);
-        JsonArrayRequest washerArrayRequest = new JsonArrayRequest(Request.Method.GET, "washing", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest washerArrayRequest = new JsonArrayRequest(Request.Method.POST, "washing", postTest, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try{
                     for(int i=0;i<response.length();i++){
                         JSONObject washer = response.getJSONObject(i);
-                        if(washer.getString("building_number")=="intent에 담긴 동 정보"){
+                        if(washer.getString("display_name").equals("washer")&&washer.getString("building_number").equals("intent에 담긴 동 정보")){
                             nowBuildingWasherArray.put(washer);
                             washerCount++;
-                            if(washer.getString("work")=="true"){
+                            long now = System.currentTimeMillis() / 1000;
+                            long lastStarted = Long.parseLong(washer.getString("last_started"));
+                            long workingTime = Integer.parseInt(washer.getString("working_time")) * 60;
+                            if(lastStarted + workingTime < now){
                                 workingWasherCount++;
                             }
                         }
@@ -77,17 +87,20 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
         });
 
         queue.add(washerArrayRequest);
-        JsonArrayRequest dryerArrayRequest = new JsonArrayRequest(Request.Method.GET, "drying", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest dryerArrayRequest = new JsonArrayRequest(Request.Method.POST, "drying", postTest, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try{
                     for(int i=0;i<response.length();i++){
                         JSONObject dryer = response.getJSONObject(i);
-                        if(dryer.getString("building_number")=="intent에 담긴 동 정보"){
-                            nowBuildingDryerArray.put(dryer);
-                            dryerCount++;
-                            if(dryer.getString("work")=="true"){
-                                workingDryerCount++;
+                        if(dryer.getString("display_name").equals("washer")&&dryer.getString("building_number").equals("intent에 담긴 동 정보")){
+                            nowBuildingWasherArray.put(dryer);
+                            washerCount++;
+                            long now = System.currentTimeMillis() / 1000;
+                            long lastStarted = Long.parseLong(dryer.getString("last_started"));
+                            long workingTime = Integer.parseInt(dryer.getString("working_time")) * 60;
+                            if(lastStarted + workingTime < now){
+                                workingWasherCount++;
                             }
                         }
                     }

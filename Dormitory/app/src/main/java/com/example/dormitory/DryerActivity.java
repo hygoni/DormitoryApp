@@ -1,5 +1,6 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
@@ -22,10 +23,17 @@ import java.util.Locale;
 public class DryerActivity extends AppCompatActivity implements View.OnClickListener{
 
     JSONArray jsonArray;
+
+    ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dryer);
+
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("건조기 현황");
+
 
         Intent intent= getIntent();
         String jsonArrayList = intent.getStringExtra("dryerInfo");

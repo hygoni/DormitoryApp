@@ -1,5 +1,6 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +8,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -51,11 +54,15 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
     int currentMin = cal.get(Calendar.MINUTE);
     int currentSec = cal.get(Calendar.SECOND);
 
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus);
 
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("순환버스");
         bus_A_text1 = findViewById(R.id.A_bus_text1);
         bus_A_text2 = findViewById(R.id.A_bus_text2);
         bus_A_text3 = findViewById(R.id.A_bus_text3);
@@ -127,13 +134,14 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
                 view = inflater.inflate(R.layout.bus_b_image_layout,null);
                 builder.setView(view);
             }
-            builder.setPositiveButton("확인",dialogListener);
+            builder.setPositiveButton("확인",null);
             customDialog = builder.create();
             customDialog.show();
         }
     }
     private void busA_getTime(){
         if((bus_start_hour>currentHour||bus_finish_hour<currentHour)||(currentHour==bus_start_hour&&currentMin<A_bus_start_min)||(currentHour==bus_finish_hour&&currentMin>A_bus_finish_min)){
+            bus_A_text1.setTextSize(22);
             bus_A_text1.setText("지금은 운행이 되지 않는 시간입니다.");
         }
         else{
@@ -142,7 +150,7 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
                 int timeTemp =Integer.parseInt(bus_A.get(i).hour)*60+Integer.parseInt(bus_A.get(i).min);
                 if(currentTemp<=timeTemp){
                     StringBuilder temp = new StringBuilder(Integer.toString(timeTemp-currentTemp));
-                    temp.append(" 분 남았습니다.");
+                    temp.append("분 남았습니다.");
                     bus_A_text1.setText(temp.toString());
                     if(currentTemp==timeTemp){
                         bus_A_text1.setText("잠시 후 도착");
@@ -167,8 +175,10 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
     }
+
     private void busB_getTime(){
         if((bus_start_hour>currentHour||bus_finish_hour<currentHour)||(currentHour==bus_start_hour&&currentMin<B_bus_start_min)||(currentHour==bus_finish_hour&&currentMin>B_bus_finish_min)){
+            bus_B_text1.setTextSize(22);
             bus_B_text1.setText("지금은 운행이 되지 않는 시간입니다.");
         }
         else{
@@ -177,7 +187,7 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
                 int timeTemp =Integer.parseInt(bus_B.get(i).hour)*60+Integer.parseInt(bus_B.get(i).min);
                 if(currentTemp<=timeTemp) {
                     StringBuilder temp = new StringBuilder(Integer.toString(timeTemp - currentTemp));
-                    temp.append(" 분 남았습니다.");
+                    temp.append("분 남았습니다.");
                     bus_B_text1.setText(temp.toString());
                     if (currentTemp == timeTemp) {
                         bus_B_text1.setText("잠시 후 도착");
@@ -202,10 +212,4 @@ public class BusActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
     }
-    DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-
-        }
-    };
 }

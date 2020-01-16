@@ -10,7 +10,8 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#F2F2F2">
         <TextView
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
@@ -19,13 +20,16 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20dp"
+            android:textColor="#000000"
             android:text="충남대학교 기숙사"/>
         <TextView
+            android:id="@+id/userTextView"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_weight="1"
             android:gravity="center"
             android:textStyle="bold"
+            android:textColor="#000000"
             android:textSize="15dp"
             android:text="User Infomation"/>
 
@@ -41,58 +45,74 @@
                 android:layout_weight="3">
                 <!-- 식당 기능, 배달 기능, 세탁기 확인 기능-->
                 <TableRow
-                    android:layout_height="180dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1">
                     <ImageButton
                         android:id="@+id/cafeteria_btn"
                         android:layout_width="0dp"
-                        android:layout_height="180dp"
+                        android:layout_height="175dp"
                         android:layout_weight="1"
-                        android:src="@drawable/cafeteria"
-                        android:scaleType="fitCenter"/>
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/main_ic_cafeteria"
+                        android:scaleType="fitCenter"
+                        android:background="@drawable/activity_main_button"/>
                     <ImageButton
                         android:id="@+id/delivery_btn"
                         android:layout_width="0dp"
-                        android:layout_height="180dp"
+                        android:layout_height="175dp"
                         android:layout_weight="1"
-                        android:src="@drawable/delivery"
-                        android:scaleType="fitCenter"/>
+                        android:layout_marginLeft="3dp"
+                        android:src="@drawable/main_ic_delivery"
+                        android:scaleType="fitCenter"
+                        android:background="@drawable/activity_main_button"/>
                 </TableRow>
                 <!-- 순환버스 기능, 입사/퇴사 기능, 공지사항 기능-->
                 <TableRow
-                    android:layout_height="180dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1">
                     <ImageButton
                         android:id="@+id/washing_btn"
                         android:layout_width="0dp"
-                        android:layout_height="180dp"
+                        android:layout_height="175dp"
                         android:layout_weight="1"
-                        android:src="@drawable/washer"
-                        android:scaleType="fitCenter"/>
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/main_ic_washer"
+                        android:scaleType="fitCenter"
+                        android:background="@drawable/activity_main_button"/>
                     <ImageButton
                         android:id="@+id/bus_btn"
                         android:layout_width="0dp"
-                        android:layout_height="180dp"
+                        android:layout_height="175dp"
                         android:layout_weight="1"
-                        android:src="@drawable/bus"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="3dp"
+                        android:src="@drawable/main_ic_bus"
+                        android:background="@drawable/activity_main_button"
                         android:scaleType="fitCenter"/>
                 </TableRow>
                 <TableRow
-                    android:layout_height="180dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1">
                     <ImageButton
                         android:id="@+id/dorm_btn"
                         android:layout_width="0dp"
-                        android:layout_height="180dp"
+                        android:layout_height="175dp"
                         android:layout_weight="1"
-                        android:src="@drawable/dorm"
+                        android:src="@drawable/main_ic_dorm"
+                        android:background="@drawable/activity_main_button"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="3dp"
                         android:scaleType="fitCenter"/>
                     <ImageButton
                         android:id="@+id/notice_btn"
                         android:layout_width="0dp"
-                        android:layout_height="180dp"
+                        android:layout_height="175dp"
                         android:layout_weight="1"
-                        android:src="@drawable/notice"
+                        android:src="@drawable/main_ic_notice"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="3dp"
+                        android:background="@drawable/activity_main_button"
                         android:scaleType="fitCenter"/>
                 </TableRow>
             </TableLayout>

@@ -77,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 queue=Volley.newRequestQueue(RegisterActivity.this);
+
                 JSONObject requestJsonObject = new JSONObject();
                 try {
                     requestJsonObject.put("uid",userID);

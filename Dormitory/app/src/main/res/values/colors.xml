@@ -7,14 +7,14 @@
     <color name="colorWarning">#ED00CB</color>
     <color name="colorGray">#8C8C8C</color>-->
 
-    <color name="colorPrimary">#2567c3</color>
+    <color name="colorPrimary">#1C62B8</color>
     <color name="colorPrimaryDark">#05336b</color>
 
     <!--
     <color name="colorPrimary">#447fd2</color>
     <color name="colorPrimaryDark">#2a5385</color>
      -->
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorWarning">#ED00CB</color>
+    <color name="colorAccent">#0958B8</color>
+    <color name="colorWarning">#FF0000</color>
     <color name="colorGray">#8C8C8C</color>
 </resources>

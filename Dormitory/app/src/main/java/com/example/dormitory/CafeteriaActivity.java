@@ -1,5 +1,6 @@
 package com.example.dormitory;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,12 +50,17 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
     Button evaluationBtn3;
     Button evaluationBtn4;
     Button evaluationBtn5;
+
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cafeteria);
 
         assetManager = getResources().getAssets();
+
+        actionBar  = getSupportActionBar();
+        actionBar.setTitle("기숙사 식당");
 
         todayMenu= findViewById(R.id.todayMenu);
         breakfastA_View = findViewById(R.id.BreakfastA);
@@ -176,16 +182,16 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
             if(v==evaluationBtn1){
                 temp = breakfastA_View.getText().toString().substring(0,breakfastA.indexOf("[")+3);
                 menuType = date+" 아침 A"+temp +" 식단";
-            }else if(v==evaluationBtn2){
+            } else if(v==evaluationBtn2){
                 temp = breakfastC_View.getText().toString().substring(0,breakfastC.indexOf("[")+3);
                 menuType = date+" 아침 C"+ temp +" 식단";
-            }else if(v==evaluationBtn3){
+            } else if(v==evaluationBtn3){
                 temp = lunchA_View.getText().toString().substring(0,lunchA.indexOf("[")+3);
                 menuType = date+" 점심 A"+ temp +" 식단";
-            }else if(v==evaluationBtn4){
-                temp = lunchB_View.getText().toString().substring(0,lunchB.indexOf("[")+3);
+            } else if(v==evaluationBtn4){
+                temp = lunchB_View.getText().toString().substring(0,lunchB.indexOf("[")+4);
                 menuType = date+" 점심 B"+ temp +" 식단";
-            }else if(v==evaluationBtn5){
+            } else if(v==evaluationBtn5){
                 temp = dinner_View.getText().toString().substring(0,dinner.indexOf("[")+3);
                 menuType = date+" 저녁 A"+ temp +" 식단";
             }
@@ -193,6 +199,4 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
             CafeteriaActivity.this.startActivity(intent);
         }
     }
-    //onTouch
-    //onLongClickListener
 }

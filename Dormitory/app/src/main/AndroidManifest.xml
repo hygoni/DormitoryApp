@@ -13,6 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ReadingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".WritingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".DeliveryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,23 +34,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DryerActivity" />
-        <activity android:name=".WasherActivity" />
-        <activity android:name=".EvaluationActivity">
+        <activity
+            android:name=".DryerActivity"
+            android:parentActivityName=".WashingActivity" />
+        <activity
+            android:name=".WasherActivity"
+            android:parentActivityName=".WashingActivity" />
+        <activity
+            android:name=".EvaluationActivity"
+            android:parentActivityName=".CafeteriaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CafeteriaActivity">
+        <activity
+            android:name=".CafeteriaActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WashingActivity">
+        <activity
+            android:name=".WashingActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +69,7 @@
         </activity>
         <activity
             android:name=".LeavingActivity"
-            android:theme="@style/NoActionBarTheme" />
+            android:parentActivityName=".DormActivity" />
         <activity
             android:name=".EnteringActivity"
             android:theme="@style/NoActionBarTheme">
@@ -55,7 +79,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BusActivity">
+        <activity
+            android:name=".BusActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -82,7 +108,7 @@
         </activity>
         <activity
             android:name=".DormActivity"
-            android:theme="@style/NoActionBarTheme">
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -3,7 +3,8 @@
     android:id="@+id/activity_lab10_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#f2f2f2">
 
     <TextView
         android:id="@+id/bus_caution"
@@ -13,9 +14,9 @@
         android:gravity="center_horizontal"
         android:text="주의 사항: 시간이 정확하지 않을수도 있습니다!\n 참고용으로만 사용해주세요."
         android:textColor="@color/colorWarning"
-        android:textSize="16dp"
+        android:textSize="18dp"
         android:textStyle="bold" />
-
+    <!--  통합하는 layout-->
     <LinearLayout
         android:id="@+id/bus_layout"
         android:layout_width="match_parent"
@@ -25,108 +26,147 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
+        <!-- 순환버스 A-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginRight="3dp"
             android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="순환버스 A"
-                android:textSize="30dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/A_bus_text1"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="16dp"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:hint="A 운행 정보"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/A_bus_text2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="다음 A버스 도착 예상 시간" />
+                android:background="@drawable/activity_bus_border">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="순환버스 A"
+                    android:textSize="30dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/A_bus_text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:hint="A 운행 정보"
+                    android:textSize="25dp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/A_bus_text3"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:hint="A 시간 출력"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/A_bus_text4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:hint="A 시간 출력"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/A_bus_text5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:hint="A 시간 출력"
-                android:text="" />
+                android:layout_marginTop="5dp"
+                android:background="@drawable/activity_bus_border">
+                <TextView
+                    android:id="@+id/A_bus_text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:textSize="16dp"
+                    android:textColor="#000000"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text="다음 A버스 도착 예상 시간" />
+                <TextView
+                    android:id="@+id/A_bus_text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
+                <TextView
+                    android:id="@+id/A_bus_text4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
+                <TextView
+                    android:id="@+id/A_bus_text5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/bus_A_Image_Btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="순환버스 A 노선도" />
+                android:text="순환버스 A 노선도"
+                android:textColor="#000"
+                android:background="@drawable/activity_bus_button"/>
         </LinearLayout>
 
+        <!-- 순환버스 B-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginLeft="3dp"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:background="@drawable/activity_bus_border">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="순환버스 B"
+                android:layout_marginTop="10dp"
                 android:textSize="30dp"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/B_bus_text1"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="16dp"
                 android:layout_weight="3"
                 android:gravity="center"
+                android:textColor="#000000"
                 android:hint="B 운행 정보"
                 android:textSize="25dp" />
-
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/activity_bus_border">
             <TextView
                 android:id="@+id/B_bus_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:textSize="16dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:textStyle="bold"
                 android:text="다음 B버스 도착 예상 시간" />
 
             <TextView
@@ -134,37 +174,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textSize="15dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:hint="B 운행 시간"
-                android:text="" />
-
+                android:gravity="center_horizontal"
+                android:textColor="#000000"/>
             <TextView
                 android:id="@+id/B_bus_text4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:hint="B 운행 시간"
-                android:text="" />
-
+                android:textSize="15dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000" />
             <TextView
                 android:id="@+id/B_bus_text5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:hint="B 운행 시간"
-                android:text="" />
-
+                android:textSize="15dp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000" />
+            </LinearLayout>
             <Button
                 android:id="@+id/bus_B_Image_Btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="순환버스 B 노선도" />
+                android:text="순환버스 B 노선도"
+                android:textColor="#000"
+                android:background="@drawable/activity_bus_button"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -172,7 +212,10 @@
         android:id="@+id/resetBtn"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
         android:text="새로고침"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:textStyle="bold"
+        android:background="@drawable/activity_bus_button"/>
 
 </RelativeLayout>

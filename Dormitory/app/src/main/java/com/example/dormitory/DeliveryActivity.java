@@ -1,40 +1,61 @@
 package com.example.dormitory;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.view.View;
+import android.widget.ListView;
 
-public class DeliveryActivity extends AppCompatActivity {
+import com.android.volley.RequestQueue;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-    private WebView mWebView; // 웹뷰 선언
-    private WebSettings mWebSettings; //웹뷰세팅
+import java.util.ArrayList;
 
+public class DeliveryActivity extends AppCompatActivity implements View.OnClickListener{
+
+    RequestQueue queue;
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-        // 웹뷰 시작
-        mWebView = (WebView) findViewById(R.id.deliveryWebView);
+        setContentView(R.layout.activity_delivery);
+        ListView listView = findViewById(R.id.custom_list_view);
+        fab = findViewById(R.id.writing_fab);
+        fab.setOnClickListener(this);
 
-        mWebView.setWebViewClient(new WebViewClient()); // 클릭시 새창 안뜨게
-        mWebSettings = mWebView.getSettings(); //세부 세팅 등록
-        mWebSettings.setJavaScriptEnabled(true); // 웹페이지 자바스클비트 허용 여부
-        mWebSettings.setSupportMultipleWindows(false); // 새창 띄우기 허용 여부
-        mWebSettings.setJavaScriptCanOpenWindowsAutomatically(false); // 자바스크립트 새창 띄우기(멀티뷰) 허용 여부
-        mWebSettings.setLoadWithOverviewMode(true); // 메타태그 허용 여부
-        mWebSettings.setUseWideViewPort(true); // 화면 사이즈 맞추기 허용 여부
-        mWebSettings.setSupportZoom(false); // 화면 줌 허용 여부
-        mWebSettings.setBuiltInZoomControls(false); // 화면 확대 축소 허용 여부
-        mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); // 컨텐츠 사이즈 맞추기
-        mWebSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // 브라우저 캐시 허용 여부
-        mWebSettings.setDomStorageEnabled(true); // 로컬저장소 허용 여부
+        DBTest helper = new DBTest(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from tb_test",null);
 
-        mWebView.loadUrl("http://cnuant.iptime.org:8080/board"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+        ArrayList<PostVO> datas = new ArrayList<>();
+
+       while(cursor.moveToNext()){
+            PostVO vo = new PostVO();
+            vo.title = cursor.getString(1);
+            vo.time = cursor.getString(2);
+            vo.name = cursor.getString(3);
+            datas.add(vo);
+        }
+        db.close();
+
+        PostAdapter adapter = new PostAdapter(this,R.layout.custom_item,datas);
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //??refresh
+    }
+
+    @Override
+    public void onClick(View v){
+        if(v == fab){
+            Intent intent = new Intent(DeliveryActivity.this,WritingActivity.class);
+            startActivity(intent);
+        }
     }
 }

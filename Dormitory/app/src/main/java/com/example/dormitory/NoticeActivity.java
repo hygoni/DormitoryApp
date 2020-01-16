@@ -37,6 +37,5 @@ public class NoticeActivity extends AppCompatActivity {
 
        // mWebView.loadUrl("http://cnuant.iptime.org:8080/board"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
         mWebView.loadUrl("https://dorm.cnu.ac.kr/_prog/_board/?code=sub05_0501&site_dvs_cd=kr&menu_dvs_cd=0501");
-
     }
 }

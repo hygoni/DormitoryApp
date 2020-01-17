@@ -10,84 +10,65 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import java.util.Date;
-import java.util.Locale;
+public class WasherActivity extends AppCompatActivity  {
 
-public class WasherActivity extends AppCompatActivity implements View.OnClickListener {
-
-    ArrayList<Button> btnArray = new ArrayList<>();
-
+    ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
     JSONArray jsonArray ;
-
-    Button testBtn ;
     ActionBar actionBar;
+    String token;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_washer);
-        //버튼을 여러개 만들어 놓고 43
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("세탁기 현황");
 
         Intent intent= getIntent();
         String jsonArrayList = intent.getStringExtra("washerInfo");
+        token = intent.getStringExtra("token");
         try{
             jsonArray = new JSONArray(jsonArrayList);
             for(int i=0;i<jsonArray.length();i++){
-            JSONObject washer = jsonArray.getJSONObject(i);
-                if(washer.getString("washer_number")==Integer.toString(i)){
-                    if(washer.getString("work")=="true"){
-
-                    }else if(washer.getString("work")=="false"){
-
-                    }
-                }
+                JSONObject washer = jsonArray.getJSONObject(i);
+                jsonObjectArrayList.add(washer);
             }
         }catch (JSONException e){
             e.printStackTrace();
         }
-
-        testBtn = findViewById(R.id.washer1_turnOnBtn);
-        testBtn.setOnClickListener(this);
-
-    }
-
-    //클릭 후 서버에 종료시간과 세탁기 번호 보낼거임
-    @Override
-    public void onClick(View v){
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE,1);
-        //calendar.add(Calendar.MINUTE,43);
-        Date currentDateTime = calendar.getTime();
-        String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 a EE요일 hh시 mm분 ", Locale.getDefault()).format(currentDateTime);
-        Toast.makeText(getApplicationContext(),date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
-        diaryNotification(calendar);
-    }
-
-    void diaryNotification(Calendar calendar)
-    {
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        if (alarmManager != null) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        for(int i = 0; i< jsonObjectArrayList.size(); i++){
+            for(int j = i+1; j< jsonObjectArrayList.size(); j++){
+                JSONObject temp1 = jsonObjectArrayList.get(i);
+                JSONObject temp2 = jsonObjectArrayList.get(j);
+                try{
+                    if(temp1.getInt("sub_id")>temp2.getInt("sub_id")){
+                        jsonObjectArrayList.set(i,temp2);
+                        jsonObjectArrayList.set(j,temp1);
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
         }
+        ArrayList<MachineVO> datas = new ArrayList<>();
+        for(int i=0;i<jsonObjectArrayList.size();i++){
+            MachineVO vo = new MachineVO();
+            vo.jsonObject = jsonObjectArrayList.get(i);
+            vo.token = token;
+            datas.add(vo);
+        }
+        ListView listView = findViewById(R.id.custom_list2_view);
+        MachineAdapter adapter = new MachineAdapter(this ,R.layout.custom_item2, datas);
+        listView.setAdapter(adapter);
     }
 }
+

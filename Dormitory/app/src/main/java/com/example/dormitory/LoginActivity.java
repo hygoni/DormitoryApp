@@ -73,13 +73,13 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                                        String data = "";
+                                        String token = "";
                                         try{
-                                            data = response.getString("data");
+                                            token = response.getString("data");
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
-                                        intent.putExtra("data",data);
+                                        intent.putExtra("token",token);
                                         LoginActivity.this.startActivity(intent);
                                         finish();
                                     }

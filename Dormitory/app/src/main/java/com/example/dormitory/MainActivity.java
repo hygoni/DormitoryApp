@@ -7,15 +7,28 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     long initTime;    //종료할 때 두 번 입력받는 기능을 구현하기 위해 시간을 측정하기 위한 변수
@@ -31,7 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton dormBtn;
     ImageButton noticeBtn;
 
-    String data;
+    String token;
+    RequestQueue queue;
+
+    String userName;
+    int buildingNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +71,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dormBtn.setOnClickListener(this);
         noticeBtn.setOnClickListener(this);
 
-        data = intent.getStringExtra("data");
-        userView.setText(data);
+        token = intent.getStringExtra("token");
+
+        queue = Volley.newRequestQueue(MainActivity.this);
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, "http://cnuant.iptime.org:8000/getUser", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    userName = response.getString("uid");
+                    buildingNumber = response.getInt("building_number");
+                    userView.setText(userName);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                showToast("송수신 오류");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("X-AUTH-TOKEN", token);
+                return headers;
+            }
+        };
+
+        queue.add(jsonRequest);
+
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         drawer=findViewById(R.id.main_drawer);
         toggle=new ActionBarDrawerToggle(this, drawer, R.string.drawer_open, R.string.drawer_close);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,7 +149,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }else if(v==washingBtn){
             Intent intent=new Intent(this, WashingActivity.class);
-            //몇동인지 정보가 넘어가야할듯
+            intent.putExtra("token", token);
+            intent.putExtra("building_number",Integer.toString(buildingNumber));
             startActivity(intent);
         }else if(v==deliveryBtn){
             Intent intent=new Intent(this, DeliveryActivity.class);

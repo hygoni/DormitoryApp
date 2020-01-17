@@ -105,7 +105,6 @@
                     android:gravity="center_horizontal"
                     android:textColor="#000000" />
             </LinearLayout>
-
             <Button
                 android:id="@+id/bus_A_Image_Btn"
                 android:layout_width="match_parent"

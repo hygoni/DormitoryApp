@@ -107,10 +107,12 @@ public class LeavingActivity extends AppCompatActivity implements View.OnClickLi
                     == PackageManager.PERMISSION_GRANTED){
                 try{
                     String dirPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/myApp";
+                  //  String dirPath= getFilesDir().toString() +"/myApp";
                     File dir=new File(dirPath);
                     if(!dir.exists()){
                         dir.mkdir();
                     }
+                    //
                     filePath=File.createTempFile("IMG", ".jpg", dir);
                     if(!filePath.exists()){
                         filePath.createNewFile();

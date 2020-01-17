@@ -23,6 +23,7 @@ public class DeliveryActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
         ListView listView = findViewById(R.id.custom_list_view);
+
         fab = findViewById(R.id.writing_fab);
         fab.setOnClickListener(this);
 

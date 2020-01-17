@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBTest extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION=1;
     public DBTest(Context context){
-        super(context, "datadb", null, DATABASE_VERSION);
+        super(context, "testdb", null, DATABASE_VERSION);
     }
 
     public void onCreate(SQLiteDatabase db) {

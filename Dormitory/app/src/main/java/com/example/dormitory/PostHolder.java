@@ -3,7 +3,7 @@ package com.example.dormitory;
 import android.view.View;
 import android.widget.TextView;
 
-public class PostHolder{
+public class PostHolder {
     public TextView titleView;
     public TextView timeView;
     public TextView shiftView;

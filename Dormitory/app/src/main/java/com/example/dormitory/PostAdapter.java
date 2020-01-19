@@ -1,6 +1,8 @@
 package com.example.dormitory;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ public class PostAdapter extends ArrayAdapter<PostVO> {
     Context context;
     int resId;
     ArrayList<PostVO> datas;
-
+    LayoutInflater inflater;
     public PostAdapter(Context context, int resId, ArrayList<PostVO> datas){
         super(context,resId);
         this.context = context;
@@ -34,7 +36,7 @@ public class PostAdapter extends ArrayAdapter<PostVO> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
-            LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView=inflater.inflate(resId, null);
             PostHolder holder=new PostHolder(convertView);
             convertView.setTag(holder);
@@ -48,7 +50,7 @@ public class PostAdapter extends ArrayAdapter<PostVO> {
 
         final PostVO vo = datas.get(position);
 
-        titleView.setText(vo.title);
+        titleView.setText("["+vo.category+"] "+vo.title);
         timeView.setText(vo.time);
         shiftView.setText(" | ");
         nameView.setText(vo.name);
@@ -57,8 +59,16 @@ public class PostAdapter extends ArrayAdapter<PostVO> {
         postArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast t = Toast.makeText(v.getContext(),titleView.getText().toString(),Toast.LENGTH_SHORT);
-                t.show();
+                Intent intent = new Intent(inflater.getContext(),ReadingActivity.class);
+                intent.putExtra("title",vo.title);
+                intent.putExtra("content",vo.content);
+                intent.putExtra("name",vo.name);
+                intent.putExtra("time",vo.time);
+                intent.putExtra("category",vo.category);
+                intent.putExtra("article_id",vo.article_id);
+                intent.putExtra("token",vo.token);
+
+                context.startActivity(intent);
             }
         });
 

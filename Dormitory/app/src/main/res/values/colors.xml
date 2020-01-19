@@ -16,5 +16,7 @@
      -->
     <color name="colorAccent">#0958B8</color>
     <color name="colorWarning">#FF0000</color>
-    <color name="colorGray">#8C8C8C</color>
+    <color name="color_border">#e7e7e7</color>
+    <color name="color_mainBtn">#dfdfdf</color>
+    <color name="color_Btn">#c2c2c2</color>
 </resources>

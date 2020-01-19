@@ -50,13 +50,19 @@ public class EvaluationActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(EvaluationActivity.this);
             @Override
             public void onClick(View v) {
-                dialog = builder.setMessage("제출이 완료되었습니다.\n소중한 의견 감사합니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                }).create();
-                dialog.show();
+                if(editText.getText().toString().equals("")){
+                    dialog = builder.setMessage("빈칸을 채워주세요. ").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }else {
+                    dialog = builder.setMessage("제출이 완료되었습니다.\n소중한 의견 감사합니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).create();
+                    dialog.show();
+                }
             }
         });
     }

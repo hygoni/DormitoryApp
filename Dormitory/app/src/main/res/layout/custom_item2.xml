@@ -2,25 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/machine">
+    android:id="@+id/machine"
+    android:gravity="center_horizontal">
     <TextView
         android:id="@+id/machine_num"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_weight="1"
         android:gravity="center"
         android:text="1"/>
     <TextView
         android:id="@+id/machine_working"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="40dp"
-        android:layout_weight="2"
         android:gravity="center"
         android:text="사용가능?불가능"/>
     <Button
         android:id="@+id/machine_turnOn"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_weight="3"
         android:text="세탁 시작"/>
 </LinearLayout>

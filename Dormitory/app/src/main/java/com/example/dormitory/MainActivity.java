@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    userName = response.getString("uid");
+                    userName = response.getString("nickname");
                     buildingNumber = response.getInt("building_number");
                     userView.setText(userName);
                 }catch (JSONException e){
@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         queue.add(jsonRequest);
-
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         drawer=findViewById(R.id.main_drawer);
@@ -154,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }else if(v==deliveryBtn){
             Intent intent=new Intent(this, DeliveryActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
         }
     }
@@ -180,4 +180,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return super.onOptionsItemSelected(item);
     }
+    /*
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, "http://cnuant.iptime.org:8000/getUser", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    userName = response.getString("nickname");
+                    buildingNumber = response.getInt("building_number");
+                    userView.setText(userName);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                showToast("송수신 오류");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("X-AUTH-TOKEN", token);
+                return headers;
+            }
+        };
+        queue.add(jsonRequest);
+    }*/
 }

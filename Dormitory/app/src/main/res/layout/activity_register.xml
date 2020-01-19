@@ -74,7 +74,7 @@
                 android:background="@color/colorPrimary"
                 android:drawableStart="@drawable/ic_person_pin_black_24dp"
                 android:drawableLeft="@drawable/ic_person_pin_black_24dp"
-                android:hint="별명"
+                android:hint="이름"
                 android:padding="10dp"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF" />

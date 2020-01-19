@@ -4,28 +4,31 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Calendar;
 
 public class CafeteriaActivity extends AppCompatActivity implements View.OnClickListener{
     Calendar cal = Calendar.getInstance();
-    //int  day = 7;
     int  day = cal.get(Calendar.DAY_OF_WEEK);
-    AssetManager assetManager;
+
+    public  String[] dateArray=new String[7];
+    public  String[][] breakfastArray=new String[7][2];
+    public  String[][] lunchArray=new String[7][2];
+    public  String[] dinnerArray=new String[7];
 
     String todayOfWeek = dayOfWeek();
 
@@ -52,12 +55,13 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
     Button evaluationBtn5;
 
     ActionBar actionBar;
+
+    Handler handler = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cafeteria);
-
-        assetManager = getResources().getAssets();
 
         actionBar  = getSupportActionBar();
         actionBar.setTitle("기숙사 식당");
@@ -75,49 +79,73 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
         evaluationBtn4 = findViewById(R.id.cafeteria_evaluation_btn4);
         evaluationBtn5 = findViewById(R.id.cafeteria_evaluation_btn5);
 
-        try {
-            AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("menu.json");
-            BufferedReader br = new BufferedReader(new InputStreamReader(ais));
-            StringBuilder sb = new StringBuilder();
-            String str ="";
-            while((str = br.readLine()) != null){
-                sb.append(str);
+        handler = new Handler();
+        Thread t = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                //SubThread이므로 UI작업시 Exception
+                try{
+                    Document doc = Jsoup.connect("http://dorm.cnu.ac.kr/html/kr/sub03/sub03_0304.html").get();
+                    Elements contents=doc.select("tbody tr td");
+                    int dayCount=0;
+                    int get=3;
+                    while(dayCount<=6){
+                        dateArray[dayCount]=contents.get(get).ownText();
+                        get++;
+                        getBreakfast(contents,get,dayCount);
+                        get++;
+                        getLunch(contents,get,dayCount);
+                        get++;
+                        getDinner(contents,get,dayCount);
+                        get++;
+                        dayCount++;
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                handler.post(new Runnable(){
+                    @Override
+                    public void run() {
+                        //Handler - UI 작업 가능!!
+                        try {
+                            JSONObject menuData = innerPut((day+5)%7);
+
+                            date = menuData.getString("date");
+                            breakfastA = menuData.getString("BreakfastA");
+                            breakfastC = menuData.getString("BreakfastC");
+                            lunchA = menuData.getString("LunchA");
+                            dinner = menuData.getString("Dinner");
+
+                            lunchB = null;
+                            if(!(todayOfWeek=="Sunday"||todayOfWeek=="Saturday")){
+                                lunchB = menuData.getString("LunchB");
+                            }
+                            todayMenu.setText(date+" 의 메뉴");
+
+                            breakfastA_View.setText("메인 A"+breakfastA.substring(0,breakfastA.indexOf("]")+2)+"\n\n"+parser(breakfastA.substring(breakfastA.indexOf("]")+2)));
+                            breakfastC_View.setText("메인 C"+breakfastC.substring(0,breakfastC.indexOf("]")+2)+"\n\n"+parser(breakfastC.substring(breakfastC.indexOf("]")+2)));
+                            lunchA_View.setText("메인 A"+lunchA.substring(0,lunchA.indexOf("]")+2)+"\n\n"+parser(lunchA.substring(lunchA.indexOf("]")+2)));
+                            if(!(todayOfWeek=="Sunday"||todayOfWeek=="Saturday")){
+                                lunchB_View.setText("메인 B"+lunchB.substring(0,lunchB.indexOf("]")+2)+"\n\n"+parser(lunchB.substring(lunchB.indexOf("]")+2)));
+                            }
+                            dinner_View.setText("메인 A"+dinner.substring(0,dinner.indexOf("]")+2)+"\n\n"+parser(dinner.substring(dinner.indexOf("]")+2)));
+                            if(todayOfWeek=="Sunday"||todayOfWeek=="Saturday"){
+                                lunchB_View.setVisibility(View.INVISIBLE);
+                                evaluationBtn4.setVisibility(View.INVISIBLE);
+                                lunchB_View.setHeight(0);
+                                evaluationBtn4.setHeight(0);
+                            }
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
-            String res = sb.toString();
-            JSONObject obj = new JSONObject(res);
-            JSONObject menuData = new JSONObject(obj.getString(todayOfWeek));
-            date = menuData.getString("date");
+        });
+        t.start();
 
-            breakfastA = menuData.getString("BreakfastA");
-            breakfastC = menuData.getString("BreakfastC");
-
-            lunchA = menuData.getString("LunchA");
-            dinner = menuData.getString("Dinner");
-
-            lunchB = null;
-            if(!(todayOfWeek=="Sunday"||todayOfWeek=="Saturday")){
-                lunchB = menuData.getString("LunchB");
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        todayMenu.setText(date+" 의 메뉴");
-
-
-        breakfastA_View.setText("메인 A"+breakfastA.substring(0,breakfastA.indexOf("]")+2)+"\n\n"+parser(breakfastA.substring(breakfastA.indexOf("]")+2)));
-        breakfastC_View.setText("메인 C"+breakfastC.substring(0,breakfastC.indexOf("]")+2)+"\n\n"+parser(breakfastC.substring(breakfastC.indexOf("]")+2)));
-        lunchA_View.setText("메인 A"+lunchA.substring(0,lunchA.indexOf("]")+2)+"\n\n"+parser(lunchA.substring(lunchA.indexOf("]")+2)));
-        if(!(todayOfWeek=="Sunday"||todayOfWeek=="Saturday")){
-            lunchB_View.setText("메인 B"+lunchB.substring(0,lunchB.indexOf("]")+2)+"\n\n"+parser(lunchB.substring(lunchB.indexOf("]")+2)));
-        }
-        dinner_View.setText("메인 A"+dinner.substring(0,dinner.indexOf("]")+2)+"\n\n"+parser(dinner.substring(dinner.indexOf("]")+2)));
-        if(todayOfWeek=="Sunday"||todayOfWeek=="Saturday"){
-            lunchB_View.setVisibility(View.INVISIBLE);
-            evaluationBtn4.setVisibility(View.INVISIBLE);
-            lunchB_View.setHeight(0);
-            evaluationBtn4.setHeight(0);
-        }
         breakfastA_View.setOnClickListener(this);
         breakfastC_View.setOnClickListener(this);
         lunchA_View.setOnClickListener(this);
@@ -198,5 +226,38 @@ public class CafeteriaActivity extends AppCompatActivity implements View.OnClick
             intent.putExtra("menuType",menuType);
             CafeteriaActivity.this.startActivity(intent);
         }
+    }
+
+    public void getBreakfast(Elements contents, int get, int day){
+        String str=contents.get(get).ownText();
+        String[] word=str.split("메인A|메인 A|메인B|메인 B|메인 C|메인C");
+        breakfastArray[day][0]=word[1];
+        breakfastArray[day][1]=word[2];
+    }
+    public void getLunch(Elements contents, int get, int day){
+        Element ele=contents.get(get);
+        String str=ele.text();
+        String[] word=str.split("메인A|메인 A|메인B|메인 B|메인 C|메인C");
+        lunchArray[day][0]=word[1];
+        lunchArray[day][1]=word[2];
+    }
+    public void getDinner(Elements contents, int get, int day){
+        String str=contents.get(get).ownText();
+        String[] word=str.split("메인A|메인 A|메인B|메인 B|메인 C|메인C");
+        dinnerArray[day]=word[1];
+    }
+    JSONObject innerPut(int i){
+        JSONObject inner=new JSONObject();
+        try{
+            inner.put("date",dateArray[i]);
+            inner.put("BreakfastA",breakfastArray[i][0]);
+            inner.put("BreakfastC",breakfastArray[i][1]);
+            inner.put("LunchA",lunchArray[i][0]);
+            inner.put("LunchB",lunchArray[i][1]);
+            inner.put("Dinner",dinnerArray[i]);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return inner;
     }
 }

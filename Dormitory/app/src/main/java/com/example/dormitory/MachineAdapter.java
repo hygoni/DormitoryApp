@@ -76,7 +76,18 @@ public class MachineAdapter extends ArrayAdapter<MachineVO>{
         machineNumberView.setText(Integer.toString(position));
         try {
             if(vo.jsonObject.getBoolean("is_working")){
-                machineWorkingView.setText("현재 작동중 입니다.");
+                Calendar cal = Calendar.getInstance();
+                long nowTime = cal.getTimeInMillis();
+
+                if (vo.jsonObject.getString("display_name").equals("dryer")) {
+                    long stopTime = vo.jsonObject.getLong("last_started")*1000 + 120000;
+                    machineWorkingView.setText("현재 작동중 : "+(stopTime- nowTime)/60000 +"분 남음");
+                }
+                else {
+                    long stopTime = vo.jsonObject.getLong("last_started")*1000 + 60000;
+                    machineWorkingView.setText("현재 작동중 : "+(stopTime- nowTime)/60000 +"분 남음");
+                }
+                //machineWorkingView.setText("현재 작동중 입니다.");
                 turnOnButton.setText("작동 불가");
                 turnOnButton.setEnabled(false);
             }else{
@@ -88,6 +99,7 @@ public class MachineAdapter extends ArrayAdapter<MachineVO>{
         catch (JSONException e){
             e.printStackTrace();
         }
+
         turnOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +132,26 @@ public class MachineAdapter extends ArrayAdapter<MachineVO>{
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "http://cnuant.iptime.org:8000/startWasher", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("TAG", "onListenResponse: "+"보내져요.");
+                        try{
+                            if(response.getBoolean("success")){
+                                Calendar cal = Calendar.getInstance();
+                                long nowTime = cal.getTimeInMillis();
+                                if (vo.jsonObject.getString("display_name").equals("dryer")) {
+                                    long stopTime = nowTime + 120000;
+                                    machineWorkingView.setText("현재 작동중 : "+(stopTime- nowTime)/60000 +"분 남음");
+                                }
+                                else {
+
+                                    long stopTime = nowTime + 60000;
+                                    machineWorkingView.setText("현재 작동중 : "+(stopTime- nowTime)/60000 +"분 남음");
+                                }
+                                //machineWorkingView.setText("현재 작동중 입니다.");
+                                turnOnButton.setText("작동 불가");
+                                turnOnButton.setEnabled(false);
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override

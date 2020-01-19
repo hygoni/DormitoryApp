@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         final EditText idText = (EditText) findViewById(R.id.idText);
-        final EditText passwordText = (EditText) findViewById(R.id.idText);
+        final EditText passwordText = (EditText) findViewById(R.id.passwordText);
         final EditText nicknameText = (EditText) findViewById(R.id.nicknameText);
 
         RadioGroup genderGroup = (RadioGroup) findViewById(R.id.genderGroup);
@@ -84,6 +84,11 @@ public class RegisterActivity extends AppCompatActivity {
                     requestJsonObject.put("password",userPassword);
                     requestJsonObject.put("building_number",userDong);
                     requestJsonObject.put("nickname",userNickname);
+                    if(userGender.equals("남성")){
+                        requestJsonObject.put("gender","man");
+                    }else if(userGender.equals("여성")){
+                        requestJsonObject.put("gender","woman");
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

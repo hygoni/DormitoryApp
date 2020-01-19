@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.drm.DrmStore;
@@ -19,6 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -88,8 +90,18 @@ public class LeavingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v){
         if(v == submissionBtn){
             AlertDialog.Builder builder = new AlertDialog.Builder(LeavingActivity.this);
-            dialog = builder.setMessage("제출이 완료되었습니다.\n잠시만 기다려주세요.").setPositiveButton("확인",null).create();
-            dialog.show();
+            if(closetImage.getDrawable()!=null&&refrigeratorImage.getDrawable()!=null&&bedImage.getDrawable()!=null&&bathroomImage.getDrawable()!=null&&deskImage.getDrawable()!=null){
+                dialog = builder.setMessage("제출이 완료되었습니다.\n잠시만 기다려주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).create();
+                dialog.show();
+            }else{
+                dialog = builder.setMessage("사진이 모두 제출되지 않았습니다.").setPositiveButton("확인", null).create();
+                dialog.show();
+            }
         }else{
             int requestCode = 0;
             if(v == bedBtn){
@@ -106,19 +118,20 @@ public class LeavingActivity extends AppCompatActivity implements View.OnClickLi
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED){
                 try{
-                    String dirPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/myApp";
-                  //  String dirPath= getFilesDir().toString() +"/myApp";
+                    //String dirPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/myApp";
+                    String dirPath= Environment.getDataDirectory().getAbsolutePath()+"/Dormitory";
                     File dir=new File(dirPath);
                     if(!dir.exists()){
                         dir.mkdir();
                     }
-                    //
-                    filePath=File.createTempFile("IMG", ".jpg", dir);
+
+                   // filePath=File.createTempFile("IMG", ".jpg", dir);
+                    filePath=File.createTempFile("IMG", ".jpg",LeavingActivity.this.getCacheDir());
                     if(!filePath.exists()){
                         filePath.createNewFile();
                     }
-                    Uri phoneURI= FileProvider.getUriForFile(LeavingActivity.this, BuildConfig.APPLICATION_ID+
-                            ".provider", filePath);
+                   Uri phoneURI= FileProvider.getUriForFile(LeavingActivity.this, BuildConfig.APPLICATION_ID+".provider", filePath);
+
                     Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, phoneURI);
                     startActivityForResult(intent,requestCode);

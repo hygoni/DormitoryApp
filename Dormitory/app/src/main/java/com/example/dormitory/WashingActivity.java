@@ -28,11 +28,6 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
     String token;
     String userBuildingNumber;
 
-    int washerCount = 0;
-    int workingWasherCount = 0;
-    int dryerCount = 0;
-    int workingDryerCount = 0;
-
     TextView userBuildingInfo;
 
     TextView usingWasherTextView;
@@ -73,17 +68,21 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
         JsonArrayRequest washerArrayRequest = new JsonArrayRequest(Request.Method.GET, "http://cnuant.iptime.org:8000/getWashers", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                int washerCount = 0;
+                int workingWasherCount = 0;
+                int dryerCount = 0;
+                int workingDryerCount = 0;
                 try{
                     for(int i=0;i<response.length();i++){
                         JSONObject machine = response.getJSONObject(i);
-                        if(machine.getString("display_name").equals("washer")&&machine.getInt("building_number")== 1 ){
+                        if(machine.getString("display_name").equals("washer")&&machine.getInt("building_number")== Integer.parseInt(userBuildingNumber) ){
                             nowBuildingWasherArray.put(machine);
                             washerCount++;
                             if(machine.getBoolean("is_working")){
                                 workingWasherCount++;
                             }
                         }
-                        if(machine.getString("display_name").equals("dryer")&&machine.getInt("building_number")==1){
+                        if(machine.getString("display_name").equals("dryer")&&machine.getInt("building_number")== Integer.parseInt(userBuildingNumber)){
                             nowBuildingDryerArray.put(machine);
                             dryerCount++;
                             if(machine.getBoolean("is_working")){
@@ -91,8 +90,8 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
                             }
                         }
                     }
-                  usingWasherTextView.setText("총 세탁기의 수는 "+ Integer.toString(washerCount)+"입니다.\n현재 작동 중인 세탁기는"+Integer.toString(workingWasherCount)+" 대 입니다.");
-                  usingDryerTextView.setText("총 건조기의 수는 "+ Integer.toString(dryerCount)+"입니다.\n현재 작동 중인 건조기는"+Integer.toString(workingDryerCount)+" 대 입니다.");
+                    usingWasherTextView.setText("총 세탁기의 수는 "+ washerCount+"대 입니다.\n현재 작동 중인 세탁기는 "+workingWasherCount+"대 입니다.");
+                    usingDryerTextView.setText("총 건조기의 수는 "+ dryerCount+"대 입니다.\n현재 작동 중인 건조기는 "+workingDryerCount+"대 입니다.");
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -135,5 +134,11 @@ public class WashingActivity extends AppCompatActivity implements View.OnClickLi
 
             startActivity(intent);
         }
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 }

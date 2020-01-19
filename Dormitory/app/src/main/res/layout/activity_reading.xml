@@ -1,9 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReadingActivity">
+    android:orientation="vertical"
+    tools:context=".ReadingActivity"
+    android:background="#f2f2f2">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/ReadingMain"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/activity_reading_border"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:id="@+id/ReadingTitle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:textColor="#000"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:hint="제목"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/ReadingTime"
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="17dp"
+                android:hint="시간"/>
+            <TextView
+                android:id="@+id/ReadingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="17dp"
+                android:hint="이름"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ReadingContent"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="19dp"
+            android:textStyle="bold"
+            android:hint="내용"/>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/custom_list3_view"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="400dp"
+        android:layout_below="@id/ReadingMain"
+        android:layout_above="@id/CommentMain"/>
+
+    <LinearLayout
+        android:id="@+id/CommentMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/CommentWrite"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_weight="7"
+            android:background="@drawable/activity_evaluation_border"/>
+
+        <Button
+            android:id="@+id/CommentWriteBtn"
+            android:layout_width="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="5dp"
+            android:text="댓글달기"
+            android:background="@drawable/activity_reading_button"/>
+    </LinearLayout>
+</RelativeLayout>

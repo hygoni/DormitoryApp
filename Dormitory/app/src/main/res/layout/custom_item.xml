@@ -8,19 +8,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="#000"
         android:hint="title"/>
     <TextView
         android:id="@+id/post_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/post_title"
+        android:textSize="17dp"
         android:layout_alignLeft="@id/post_title"
+        android:textColor="#000"
         android:hint="time"/>
     <TextView
         android:id="@+id/post_shift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000"
         android:hint=" | "
+        android:textSize="17dp"
         android:layout_toRightOf="@id/post_time"
         android:layout_alignBottom="@+id/post_time" />
     <TextView
@@ -29,5 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/post_shift"
         android:layout_alignBottom="@+id/post_time"
+        android:textColor="#000"
         android:hint="name"/>
 </RelativeLayout>
